@@ -6,7 +6,6 @@ import NewPlace from './places/pages/NewPlace';
 function App() {
   return ( 
   <Router>
-    <img src='/assets/pexels-jaime-reimer-1376930-2662116.jpg'/>
     <Routes>
       <Route path='/' exact element = {<Users />} />
       <Route path='/places/new' exact element = {<NewPlace />} />
