@@ -12,7 +12,7 @@ function UserList(props) {
             </Card> 
         </div>
     
-    return <ul className="user-list">
+    return <ul className="users-list">
         {props.items.map(user =>
              <UserItem
               key={user.id}
