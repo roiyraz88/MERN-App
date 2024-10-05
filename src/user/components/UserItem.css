@@ -3,7 +3,6 @@
     width: calc(45% - 2rem);
     min-width: 17.5rem;
     list-style-type: none;
-    
   }
   
   .user-item a {
@@ -19,7 +18,7 @@
   
   .user-item a:hover,
   .user-item a:active {
-    background: #ffd900;
+    background: #bfbfbf;
   }
   
   .user-item__content {
@@ -36,7 +35,7 @@
     font-size: 1.5rem;
     margin: 0 0 0.5rem 0;
     font-weight: normal;
-    color: #ffd900;
+    color: #ffffff;
   }
   
   .user-item:hover h2,
