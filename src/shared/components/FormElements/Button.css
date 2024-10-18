@@ -23,7 +23,7 @@
   
   .button--inverse {
     background: transparent;
-    color: white;
+    color: black;
   }
   
   .button--inverse:hover,
@@ -58,4 +58,8 @@
   
   .button--big {
     font-size: 1.5rem;
+  }
+
+  .button--map{
+    color: white;
   }

@@ -8,7 +8,7 @@ function Button(props) {
     return (
       <a
         className={`button button--${props.size || 'default'} ${props.inverse &&
-          'button--inverse'} ${props.danger && 'button--danger'}`}
+          'button--inverse'} ${props.danger && 'button--danger'} ${props.testId && 'button--map' } `}
         href={props.href}
       >
         {props.children}
@@ -21,7 +21,7 @@ function Button(props) {
         to={props.to}
         exact={props.exact}
         className={`button button--${props.size || 'default'} ${props.inverse &&
-          'button--inverse'} ${props.danger && 'button--danger'}`}
+          'button--inverse'} ${props.danger && 'button--danger'} ${props.testId && 'button--map' }`}
       >
         {props.children}
       </Link>
@@ -30,7 +30,7 @@ function Button(props) {
   return (
     <button
       className={`button button--${props.size || 'default'} ${props.inverse &&
-        'button--inverse'} ${props.danger && 'button--danger'}`}
+        'button--inverse'} ${props.danger && 'button--danger'} ${props.testId && 'button--map' }`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
