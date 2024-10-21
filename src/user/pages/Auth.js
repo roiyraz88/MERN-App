@@ -13,7 +13,7 @@ import './Auth.css';
 
 function Auth(){
     const auth = useContext(AuthContext);
-    const [isLoginMode, setIsLoginMode] = useState(true);
+    const [isLoginMode, setIsLoginMode] = useState(false);
     const [formState, inputHandler, setFormData] = useForm({
       email: {
         value: '',
@@ -65,7 +65,7 @@ function Auth(){
         element="input"
         id = "name"
         type = "text"
-        lable ="Your Name"
+        lable ="Your Name:"
         validators = {[VALIDATOR_REQUIRE()]}
         errorText = "Please enter a name."
         onInput = {inputHandler}
@@ -75,7 +75,7 @@ function Auth(){
           element="input"
           id = "email"
           type = "email"
-          lable ="E-Mail"
+          lable ="E-Mail:"
           validators = {[VALIDATOR_EMAIL()]}
           errorText = "Please enter a valid email address."
           onInput = {inputHandler}
@@ -93,7 +93,9 @@ function Auth(){
           {isLoginMode ? 'LOGIN' : 'SIGNUP'}
         </Button>
       </form>
-      <Button inverse onClick={switchModeHandler}>SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}</Button>
+      {!isLoginMode && <h3>ALREADY HAVE AN ACCOUNT?</h3>}
+      <div className="switch-button"><Button  inverse onClick={switchModeHandler}>SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}</Button>
+      </div>
     </Card>
 )}
 

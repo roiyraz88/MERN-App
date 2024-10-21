@@ -8,11 +8,17 @@
     max-width: 25rem;
     margin: 7rem auto;
     text-align: center;
-    margin-top: 18rem;
+    margin-top: 20rem;
     background-color: rgb(211, 211, 211);
     color: black;
   }
   
   .authentication form {
     margin-bottom: 1rem;
+  }
+
+  .switch-button{
+    margin-bottom: 1rem;
+    color: darkblue;
+    
   }
