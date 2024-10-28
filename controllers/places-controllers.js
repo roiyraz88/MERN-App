@@ -52,7 +52,7 @@ function getPlaceById(req, res, next)  {
     res.json({ places });
   }
 
-  const createPlace = async(req,res,next) => {
+  async function createPlace(req,res,next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return next(new HttpError('Invalid input passed, please check your data.',422));
