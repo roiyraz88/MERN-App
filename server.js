@@ -1,12 +1,13 @@
 const express = require('express');
 const HttpError = require('./models/http-error');
+const bodyParser = require('body-parser');
 const placesRoutes = require('./routes/places-routes')
 const usersRoutes = require('./routes/users-routes');
-
+const mongoose = require('mongoose');
 
 const app = express();
 
-app.use(express.json())
+app.use(bodyParser.json())
 
 app.use('/api/places', placesRoutes);
 app.use('/api/users', usersRoutes);
@@ -24,5 +25,14 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occurred!'});
   });
 
+  mongoose
+  .connect('mongodb+srv://roieRaz:682000@cluster0.jmhh8.mongodb.net/BeenThere?retryWrites=true&w=majority')
+  .then(() => {
+      console.log('Connected to MongoDB');
+      app.listen(5000)
+  })
+  .catch((err) => {
+      console.error('Failed to connect to MongoDB', err);
+  });
+  
 
-app.listen(5000);

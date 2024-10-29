@@ -2,6 +2,7 @@ const HttpError = require('../models/http-error');
 const { v4: uuidv4 } = require('uuid');
 const {validationResult} = require('express-validator');
 const getCordsForAddress = require('../util/location');
+const Place = require('../models/place');
 
 
 let DUMMY_PLACES = 
@@ -66,16 +67,21 @@ function getPlaceById(req, res, next)  {
         return next(error);
     }
 
-    const createdPlace = {
-        id: uuidv4(),
-        title,
-        description,
-        location: coordinates,
-        address,
-        creator
-    }
+    const createdPlace = new Place({
+      title,
+      desciption,
+      address,
+      location: coordinates,
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
+      creator
+    })
 
-    DUMMY_PLACES.push(createPlace);
+    try{
+      await createPlace.save();
+    } catch(err){
+      const error = new HttpError('Creating place failed, please tty again', 500)
+      return next(error);
+    }
 
     res.status(201).json({createdPlace});
   }
