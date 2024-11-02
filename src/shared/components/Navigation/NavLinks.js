@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../contex/auth-contex";
+import { AuthContext } from "../../context/auth-context";
 import './NavLinks.css';
 
 function NavLinks(props){
@@ -8,16 +8,16 @@ function NavLinks(props){
 
     return <ul className="nav-links">
         <li>
-            <NavLink to="/" exsct>ALL USERS</NavLink>
+            <NavLink to="/" exact>ALL USERS</NavLink>
         </li>
         {auth.isLoggedIn && <li>
-            <NavLink to="/u1/places" exsct>MY PLACES</NavLink>
+            <NavLink to={`/${auth.userId}/places`} >MY PLACES</NavLink>
         </li>}
         {auth.isLoggedIn && <li>
-            <NavLink to="/places/new" exsct>ADD PLACE</NavLink>
+            <NavLink to="/places/new" >ADD PLACE</NavLink>
         </li>}
         {!auth.isLoggedIn && <li>
-            <NavLink to="/auth" exsct>AUTHENTICATE</NavLink>
+            <NavLink to="/auth" >AUTHENTICATE</NavLink>
         </li>}
         {auth.isLoggedIn && (
             <li>

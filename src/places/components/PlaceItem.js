@@ -1,39 +1,49 @@
-import React,{useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
+
 import Card from '../../shared/components/UIElements/Card';
-import './PlaceItem.css';
-import Modal from '../../shared/components/UIElements/Modal';
 import Button from '../../shared/components/FormElements/Button';
+import Modal from '../../shared/components/UIElements/Modal';
 import Map from '../../shared/components/UIElements/Map';
-import { AuthContext } from '../../shared/contex/auth-contex';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { AuthContext } from '../../shared/context/auth-context';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import './PlaceItem.css';
 
 function PlaceItem(props) {
 
-    const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const auth = useContext(AuthContext);
+  const [showMap, setShowMap] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-    const [showMap, setShowMap] = useState(false);
+  const openMapHandler = () => setShowMap(true);
 
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const closeMapHandler = () => setShowMap(false);
 
-    const openMapHandler = () => setShowMap(true);
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  };
 
-    const closeMapHandler = () => setShowMap(false);
+  const cancelDeleteHandler = () => {
+    setShowConfirmModal(false);
+  };
 
-    const showDeleteWarningHandler = () => {
-      setShowConfirmModal(true);
-    };
-  
-    const cancelDeleteHandler = () => {
-      setShowConfirmModal(false);
-    };
-  
-    const confirmDeleteHandler = () => {
-      setShowConfirmModal(false);
-      console.log('DELETING...');
-    };
-  
+  const confirmDeleteHandler = async () => {
+    setShowConfirmModal(false);
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/places/${props.id}`,
+        'DELETE'
+      );
+      props.onDelete(props.id);
+    } catch (err) {}
+  };
+
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={closeMapHandler}
@@ -68,6 +78,7 @@ function PlaceItem(props) {
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item__image">
             <img src={props.image} alt={props.title} />
           </div>
@@ -78,8 +89,8 @@ function PlaceItem(props) {
           </div>
           <div className="place-item__actions">
               <Button inverse onClick={openMapHandler} testId="unique-map-button" >VIEW ON MAP</Button>
-              {auth.isLoggedIn && <Button to={`/places/${props.id}`}>EDIT</Button>}
-              {auth.isLoggedIn && <Button danger onClick={showDeleteWarningHandler}>DELETE</Button>}
+              {auth.userId === props.creatorId && <Button to={`/places/${props.id}`}>EDIT</Button>}
+              {auth.userId === props.creatorId && <Button danger onClick={showDeleteWarningHandler}>DELETE</Button>}
           </div>
         </Card>
       </li>

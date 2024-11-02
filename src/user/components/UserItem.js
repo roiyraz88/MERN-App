@@ -6,7 +6,7 @@ import Card from "../../shared/components/UIElements/Card";
 
 function UserItem(props) {
     return(
-        <li className="user-item">
+        <div className="user-item">
             <Card className="user-item__content">
                 <Link to = {`/${props.id}/places`}>
                     <div className="user-item__image">
@@ -20,7 +20,7 @@ function UserItem(props) {
                 </Link>
             </Card>
             
-        </li>
+        </div>
     )
 }
 
